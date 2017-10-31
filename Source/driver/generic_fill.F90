@@ -21,7 +21,7 @@ contains
     real(rt), intent(in   ) :: delta(dim), xlo(dim), time
     real(rt), intent(inout) :: state(s_lo(1):s_hi(1),s_lo(2):s_hi(2),s_lo(3):s_hi(3))
 
-    call filcc_nd(state,s_lo,s_hi,domlo,domhi,delta,xlo,bc)
+    call filccn(s_lo, s_hi, state, s_lo, s_hi, 1, domlo, domhi, delta, xlo, bc)
 
   end subroutine ca_generic_single_fill
 
@@ -44,11 +44,7 @@ contains
     real(rt), intent(in   ) :: delta(dim), xlo(dim), time
     real(rt), intent(inout) :: state(s_lo(1):s_hi(1),s_lo(2):s_hi(2),s_lo(3):s_hi(3),NVAR)
 
-    integer :: n
-
-    do n = 1, NVAR
-       call filcc_nd(state(:,:,:,n),s_lo,s_hi,domlo,domhi,delta,xlo,bc(:,:,n))
-    end do
+    call filccn(s_lo, s_hi, state, s_lo, s_hi, NVAR, domlo, domhi, delta, xlo, bc)
 
   end subroutine ca_generic_multi_fill
 
